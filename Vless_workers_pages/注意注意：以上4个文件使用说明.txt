@@ -1,0 +1,50 @@
+文件说明：
+1、_worker.js明文文件：不可用
+2、_worker.js混淆文件：可用 (不带proxyip，必须自定义填上proxyip，不然无法访问CF类网站{推特X、Chatgpt}
+3、nat64套壳版明文文件：不可用
+4、nat64套壳版混淆文件：可用 (自带nat64自动转换proxyip，可以访问CF类网站{推特X、Chatgpt}，不支持自定义proxyip)
+
+25.9.8更新视频教程：半混淆文件使用说明；解决你对优选IP的长期困惑；本轮1101报错的未来警示：https://youtu.be/rUpCuXTQqmQ
+
+----------------------------------------------------------------------------------------------
+
+目前推荐使用2与4的半混淆文件，文件开头可直接修改uuid与proxyip，如pages部署，请把文件名改为_worker文件类型为js
+
+相关教程与proxyip分享，请参考甬哥博客CF那期：https://ygkkk.blogspot.com/2023/07/cfworkers-vless.html
+
+-----------------------------------------------------------------------------------------------
+
+相关精选视频教程如下：
+
+workers/pages代码混淆后详细设置说明，变量值的变更设置：https://youtu.be/QSFaP5EVI04
+
+永久免费的cf vless workers原生域名节点，无需自定义域名，无需优选IP订阅，无需面版控制台：https://youtu.be/PpPKzOYLZQg
+
+永久免费的cf vless pages原生域名节点，NAT64生成ProxyIP的重要说明：https://youtu.be/yR-JpVV6SHs
+
+解读优选官方IP、优选反代IP、优选域名三者的关系与特点；ProxyIP存在的意义：https://youtu.be/NaLd-orwFUE
+
+不用自定义域名？不用频繁优选IP？不用订阅器？总结CF节点与域名的结构关系图：https://youtu.be/8s-ELRuFaeE
+
+节点不能用，问题出在哪？多平台免费客户端设置指南及避坑说明：https://youtu.be/8E0l0nQWLxs
+
+自建全端口通用的ProxyIP，同时支持客户端地址优选反代IP，自建反代IP的最终教程：https://youtu.be/CVZStM0t8BA
+
+一键自动生成美国、香港、欧洲三区优选官方IP，电脑WIN、安卓android、苹果ios多平台一键通用：https://youtu.be/6kKIzObEZ2c
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

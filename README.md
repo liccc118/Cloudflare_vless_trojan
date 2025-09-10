@@ -1,4 +1,6 @@
 # Cloudflare-workers/pages代理脚本【目前版本：25.5.4】
+------------------------------------------------
+------------------------------------------------
 ### 1、本项目仅支持本地化部署
 ### 2、本项目配置都为本地化编辑，不使用订阅器、订阅转换等第三方外链引用
 ### 3、无需担心节点订阅信息被订阅器作者或者订阅转换作者后台查看
@@ -10,18 +12,21 @@
 #### 4、Workers方式：支持vless+ws+tls、trojan+ws+tls、vless+ws、trojan+ws代理节点
 #### 5、Pages方式：支持vless+ws+tls、trojan+ws+tls代理节点
 #### 6、支持单节点链接、聚合通用节点链接、聚合通用节点订阅、sing-box节点订阅、clash节点订阅
-#### 7、虽然仅乱码混淆版可用，但只有修改uuid/密码时才必须使用变量
-#### 8、VLESS仅nat64套壳版将自动填充proxyip，无需且不支持proxyip设置，由[badafans](https://github.com/badafans)提供代码
+#### 7、VLESS仅nat64套壳版将自动填充proxyip，无需且不支持proxyip设置，由[badafans](https://github.com/badafans)提供代码
 -------------------------------------------------------------
 
 ### 交流平台：[甬哥博客地址](https://ygkkk.blogspot.com)、[甬哥YouTube频道](https://www.youtube.com/@ygkkk)、[甬哥TG电报群组](https://t.me/+jZHc6-A-1QQ5ZGVl)、[甬哥TG电报频道](https://t.me/+DkC9ZZUgEFQzMTZl)
 --------------------------------
 
-### 推荐新手用户请先看以下两个入门视频教程：
+### 推荐新手用户请先看以下四个入门视频教程：
 
-[CF vless/trojan免费节点混淆时代来临：workers/pages代码混淆后详细设置的更新说明；1101报错总结；福利计划：甬哥自建多个ProxyIP让大家使用](https://youtu.be/QSFaP5EVI04)
+[2025.9.8更新：半混淆文件使用说明；解决你对优选IP的长期困惑；本轮1101报错的未来警示](https://youtu.be/rUpCuXTQqmQ)
 
 [永久免费的cf vless workers原生域名节点 | 无需自定义域名 | 无需优选IP订阅 | 无需面版控制台 | 只需保存两个参数 | 自建无限不死节点！](https://youtu.be/PpPKzOYLZQg)
+
+[永久免费的cf vless pages原生域名节点 | NAT64生成ProxyIP的重要说明 | CF节点为何有些网站上不了？](https://youtu.be/yR-JpVV6SHs)
+
+[CF vless/trojan免费节点混淆时代来临：workers/pages代码混淆后详细设置的更新说明；1101报错总结](https://youtu.be/QSFaP5EVI04)
 
 ---------------------------------------------
 
@@ -45,8 +50,6 @@
 | 4、订阅节点：优选IP对应端口 | pt1到pt13，共13个 |CF13个标准端口、反代IP对应任意端口| CF13个标准端口|可选|
 
 #### 订阅节点中IP与端口的变量（3与4）特别注意 【新手小白可无视变量（3与4），使用默认即可】
-
-0、由于现在只能用混淆代码，无法在文件上直接修改了，只能使用变量
 
 1、切记：当你非要用订阅类的客户端，且要改优选IP时，才需要设置ip1到ip13，pt1到pt13的变量
 
@@ -243,14 +246,14 @@ CF官方优选443系端口：443、2053、2083、2087、2096、8443
 
 小白优选IP应用推荐：[CF优选IP解放小白最终方案：一键自动生成美国、香港、欧洲三区优选官方IP，电脑WIN、安卓android、苹果ios多平台一键通用](https://youtu.be/6kKIzObEZ2c)
 
-最新推荐：[CF vless/trojan免费节点混淆时代来临：workers/pages代码混淆后详细设置的更新说明；1101报错总结；福利计划：甬哥自建多个ProxyIP让大家使用](https://youtu.be/QSFaP5EVI04)
+[CF vless/trojan免费节点混淆时代来临：workers/pages代码混淆后详细设置的更新说明；1101报错总结](https://youtu.be/QSFaP5EVI04)
 
 
 ---------------------------------
 ---------------------------------
 ---------------------------------
 ---------------------------------
-## 优选域名、优选官方IP+反代IP一键脚本（在本地网络环境下利用termux或者ish运行）：
+## 优选域名、优选官方IP一键脚本（在本地网络环境下利用termux或者ish运行）：
 
 1、安卓请使用termux官方项目下载客户端（谷歌商店下载的不可用！）：https://github.com/termux/termux-app/releases/tag/v0.118.1
 
@@ -272,7 +275,7 @@ curl -sSL https://raw.githubusercontent.com/yonggekkk/Cloudflare_vless_trojan/ma
 curl -sSL https://gitlab.com/rwkgyg/CFwarp/raw/main/point/CFcdnym.sh -o CFcdnym.sh && chmod +x CFcdnym.sh && bash CFcdnym.sh
 ```
 ------------------------------------------------------------------------
-### 脚本3：CF-优选官方IP+反代IP二合一脚本（带测速），苹果安卓手机平板专用：
+### 脚本3：CF-优选官方IP脚本（带测速），苹果安卓手机平板专用：
 ```
 curl -sSL https://gitlab.com/rwkgyg/CFwarp/raw/main/point/cfip.sh -o cfip.sh && chmod +x cfip.sh && bash cfip.sh
 ```
@@ -288,5 +291,3 @@ curl -sSL https://gitlab.com/rwkgyg/CFwarp/raw/main/point/cfip.sh -o cfip.sh && 
 ------------------------------------------------------------------------
 ### 代码来源：[ca110us](https://github.com/ca110us/epeius)、[emn178](https://github.com/emn178/js-sha256/blob/master/src/sha256.js)、[3Kmfi6HP](https://github.com/3Kmfi6HP/EDtunnel)、[badafans](https://github.com/badafans/Cloudflare-IP-SpeedTest)、[XIU2](https://github.com/XIU2/CloudflareSpeedTest)
 ### 声明：所有代码来源于Github社区，并通过ChatGPT进行整合
-
-[![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com "Powered by DartNode - Free VPS for Open Source")
