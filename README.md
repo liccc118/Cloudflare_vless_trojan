@@ -1,6 +1,55 @@
-# Cloudflare-workers/pages代理脚本【目前版本：25.5.4】
-------------------------------------------------
-------------------------------------------------
+
+<img width="766" height="181" alt="9edae247c703bef887a2d680c77c3c17" src="https://github.com/user-attachments/assets/a641b36d-59ba-41e4-ac6f-6622f786187e" />
+
+# 搭建方式1：Cloudflare-Socks5/Http本地代理脚本
+### 支持基于Workers域名、Pages域名、自定义域名
+### 可选 ECH-TLS、普通TLS、无TLS 三种代理模式，应对各种阻断封杀
+
+#### 以下脚本或Docker镜像：```ygkkk/cfsh```，建议在软路由等本地平台使用，脚本快捷方式：bash cfsh.sh
+
+```
+curl -sSL https://raw.githubusercontent.com/yonggekkk/Cloudflare_vless_trojan/main/s5http_wkpgs/cfsh.sh -o cfsh.sh && chmod +x cfsh.sh && bash cfsh.sh
+```
+
+| 变量作用 | 变量名称| 变量值要求| 变量默认值| 变量要求|
+| :--- | :--- | :--- | :--- | :--- |
+| 1、CF服务端域名:端口 | cf_domain | 域名:443系端口或者80系端口 | 无，必须CF处获取workers/pages/自定义的域名 | 必填 |
+| 2、CF服务端密钥 | token | 与服务端一样的字母数字 | 无密钥 | 可选 |
+| 3、客户端本地IP端口 | client_ip | 10000-65000之间 | 30000 | 可选 |
+| 4、指定优选IP/域名 | cf_cdnip | CF的优选IP或者优选域名 | yg(可任意1-13数字).ygkkk.dpdns.org，中国移动基本上是落地香港，电信联通基本上落地日本新加坡| 可选，也推荐使用```cloudflare-ech.com```这个优选域名，基本上落地美欧地区 |
+| 5、指定ProxyIP | pyip | ipv4或[ipv6]或域名 | 使用服务端ProxyIP | 可选 |
+| 6、DNS指定DoH | dns | DNS的DoH格式 | dns.alidns.com/dns-query | 可选 |
+| 7、ECH开关 | enable_ech | y=开启，n=关闭 | 开启ECH | 可选 |
+| 8、分流开关 | cnrule | y=国内外分流代理，n=全局代理 | 国内外分流代理 | 可选 |
+
+| 三模式变量设置要点 | ECH-TLS | 普通TLS| 无TLS|
+| :--- | :--- | :--- | :--- |
+| 1、cf_domain（CF服务端域名:端口） | workers/pages/自定义的域名:443系端口 | pages/自定义的域名:443系端口 | workers域名:80系端口 | 
+| 2、enable_ech（ECH开关） | y开启 | n关闭 | y开启/n关闭 | 
+
+注意：
+
+CF80系端口：80(推荐)、8080、8880、2052、2082、2086、2095
+
+CF443系端口：443(推荐)、2053、2083、2087、2096、8443
+
+推荐非CF网站IP查询（显示CF的104.28/2a09的IP）：https://www.whatismyip.com
+
+推荐CF网站IP查询（显示proxyip的IP）：https://ip.sb
+
+ProxyIP是否有效影响着能否访问CF网站，比如CF官网、X推特、ChatGPT等网站
+
+视频教程：[CF Socks5/Http免费代理教程：揭秘ECH Workers利弊；支持三种代理模式多端口复用，客户端自定义proxyip](https://youtu.be/Y_SHcD3prt8)
+
+调侃：所谓ech workers在意义上过于狭隘。ech只是加密形式中的一种，workers更是CF服务形式中的一种，个人觉得这种代理模式的展现，取名为CF Socks5/Http更为全面且合理，与CF vless等前辈们遥相呼应
+
+------------------------------------------------------------
+
+<img width="1182" height="517" alt="e5dfbfd7c9e6f15d4bd1c8409eecdffc" src="https://github.com/user-attachments/assets/ac0bcef0-54f9-4290-8c04-f84bbbe1cdf8" />
+
+------------------------------------------------------------
+
+# 搭建方式2：Cloudflare-workers/pages代理脚本【目前版本：25.5.4】
 ### 1、本项目仅支持本地化部署
 ### 2、本项目配置都为本地化编辑，不使用订阅器、订阅转换等第三方外链引用
 ### 3、无需担心节点订阅信息被订阅器作者或者订阅转换作者后台查看
@@ -16,6 +65,7 @@
 -------------------------------------------------------------
 
 ### 交流平台：[甬哥博客地址](https://ygkkk.blogspot.com)、[甬哥YouTube频道](https://www.youtube.com/@ygkkk)、[甬哥TG电报群组](https://t.me/+jZHc6-A-1QQ5ZGVl)、[甬哥TG电报频道](https://t.me/+DkC9ZZUgEFQzMTZl)
+
 --------------------------------
 
 ### 推荐新手用户请先看以下四个入门视频教程：
@@ -28,15 +78,14 @@
 
 [CF vless/trojan免费节点混淆时代来临：workers/pages代码混淆后详细设置的更新说明；1101报错总结](https://youtu.be/QSFaP5EVI04)
 
----------------------------------------------
 
 ## 一：CF Vless节点可设置的变量内容 (仅nat64套壳版无需且不支持设置proxyip)
 
 | 变量作用 | 变量名称| 变量值要求| 变量默认值| 变量要求|
 | :--- | :--- | :--- | :--- | :--- |
 | 1、必要的uuid | uuid (小写字母) |符合uuid规定格式 |万人骑uuid：86c50e3a-5b87-49dd-bd20-03c7f2735e40|建议|
-| 2、全局节点能上CF类网站 | proxyip (小写字母) |443端口：ipv4地址、[ipv6地址]、域名。非443端口：IPV4地址:端口、[IPV6地址]:端口、域名:端口|proxyip：留空|可选|
-| 3、订阅节点：优选IP | ip1到ip13，共13个 |CF官方IP、CF反代IP、CF优选域名| CF官方不同地区的visa域名|可选|
+| 2、全局节点能上CF类网站 | proxyip (小写字母) |443端口：ipv4地址、[ipv6地址]、域名。非443端口：IPV4地址:端口、[IPV6地址]:端口、域名:端口|proxyip：脚本自带|可选|
+| 3、订阅节点：优选IP | ip1到ip13，共13个 |CF官方IP、CF反代IP、CF优选域名| ygkkk的CF官方域名|可选|
 | 4、订阅节点：优选IP对应端口 | pt1到pt13，共13个 |CF13个标准端口、反代IP对应任意端口| CF13个标准端口|可选|
 
 
@@ -45,8 +94,8 @@
 | 变量作用 | 变量名称| 变量值要求| 变量默认值| 变量要求|
 | :--- | :--- | :--- | :--- | :--- |
 | 1、必要的密码 | pswd (小写字母) |建议字母数字 |万人骑密码：trojan|建议|
-| 2、全局节点能上CF类网站 | proxyip (小写字母) |443端口：ipv4地址、[ipv6地址]、域名。非443端口：IPV4地址:端口、[IPV6地址]:端口、域名:端口|proxyip：留空|可选|
-| 3、订阅节点：优选IP | ip1到ip13，共13个 |CF官方IP、CF反代IP、CF优选域名| CF官方不同地区的visa域名|可选|
+| 2、全局节点能上CF类网站 | proxyip (小写字母) |443端口：ipv4地址、[ipv6地址]、域名。非443端口：IPV4地址:端口、[IPV6地址]:端口、域名:端口|proxyip：脚本自带|可选|
+| 3、订阅节点：优选IP | ip1到ip13，共13个 |CF官方IP、CF反代IP、CF优选域名| ygkkk的CF官方域名|可选|
 | 4、订阅节点：优选IP对应端口 | pt1到pt13，共13个 |CF13个标准端口、反代IP对应任意端口| CF13个标准端口|可选|
 
 #### 订阅节点中IP与端口的变量（3与4）特别注意 【新手小白可无视变量（3与4），使用默认即可】
@@ -62,6 +111,7 @@
 5、订阅节点变量设置可参考此[视频教程](https://youtu.be/8s-ELRuFaeE?si=MjhcKbt20d2Q2eqp&t=447)
 
 ---------------------------------
+
 ## 三：自定义proxyip
 
 虽说脚本默认自带其他大佬的proxyip，但同时也支持自定义proxyip
@@ -91,39 +141,14 @@
 3、当节点的path路径出现```/pyip=```关键字时，此节点的proxyip只认准path路径设置的proxyip，全局proxyip不起作用
 
 ---------------------------------
+
 ## 四：无需socks5！小白利用reality协议一键自制proxyip、80系/443系的任意端口反代IP
-
-### 1、Serv00专用：
-
-[项目地址](https://github.com/yonggekkk/sing-box-yg?tab=readme-ov-file#%E4%BA%8Cserv00%E4%B8%80%E9%94%AE%E4%B8%89%E5%8D%8F%E8%AE%AE%E5%85%B1%E5%AD%98%E8%84%9A%E6%9C%ACserv00%E4%B8%93%E7%94%A8)
-
-修改自Serv00老王sing-box安装脚本，支持一键三协议：vless-reality、vmess-ws(argo)、hysteria2。
-
-主要增加reality协议默认支持 CF vless/trojan 节点的proxyip以及非标端口的优选反代IP功能
-
-Serv00专用一键脚本 (默认自动安装进程保活)
-```
-bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/sing-box-yg/main/serv00.sh)
-```
-
-### 2、VPS专用：
 
 推荐使用 离中国近、便宜、流量多的纯IPV6的vps进行搭建。近可能避免使用IPV4，因为IPV4大概率被大佬们偷扫反代IP，成为他们的公益或收费反代IP库。如果非要用IPV4，请时常关注下自己VPS的流量，使用proxyip与客户端优选IP都会消耗VPS流量
 
 搭建proxyip与反代ip的脚本推荐：[x-ui-yg脚本](https://github.com/yonggekkk/x-ui-yg)、[sing-box-yg脚本](https://github.com/yonggekkk/sing-box-yg)
 
 相关操作请看[视频教程高阶1](https://youtu.be/QOnMVULADko)、[视频教程高阶2](https://youtu.be/CVZStM0t8BA)
-
-
-### 3、可现实以下四种情况(推荐在TLS节点环境下)：
-
-可选择现实1：仅用于客户端优选IP，即CF节点访问非CF网站的落地IP地区与VPS地区一致，访问CF网站落地IP地区根据proxyip决定
-
-可选择现实2：仅用于proxyip，即CF节点访问CF网站的落地IP地区与VPS地区一致，访问非CF网站落地IP地区根据客户端优选IP决定
-
-可选择现实3：同时用于客户端优选IP与proxyip，即CF节点访问CF网站的落地IP地区、访问非CF网站落地IP地区，两者都与VPS地区一致
-
-可选择现实4：通过在VPS安装WARP全局双栈V4+V6功能，即访问非CF网站的客户端优选IP的落地IP（104.28……/2a09:……）现实固定，或访问CF网站的proxyip的落地IP（104.28……/2a09:……）现实WARP解锁功能效果
 
 -------------------------------------------
 
@@ -181,7 +206,7 @@ CF官方优选443系端口：443、2053、2083、2087、2096、8443
 
 2606:4700::0 需IPV6环境
 
-通过配置变量修改，可使用他人分享的IP或者域名，也可以自行本地优选，相关优选应用与脚本可参考视频教程
+CDN优选域名：yg1.ygkkk.dpdns.org (yg1中的1，可换为1-11中任意数字，甬哥维护)
 
 本地电脑端优选项目推荐（可在上面代码区直接下载）：
 
@@ -201,7 +226,10 @@ CF官方优选443系端口：443、2053、2083、2087、2096、8443
 
 ## 七：客户端推荐
 
-#### 启用分片(Fragment)功能的好处：无视域名被墙TLS阻断，从而让workers等被墙的域名支持TLS节点
+#### 启用分片(Fragment)功能的好处：无视域名被墙TLS阻断，从而让workers等被墙的域名支持TLS节点。
+
+#### 待验证：目前workers的TLS分片功能可能已失效
+
 #### 提示：未被墙TLS阻断的自定义域名或pages域名无需开启分片就可使用TLS节点
  
 目前支持该功能的平台客户端如下（点击名称即跳转到官方下载地址）
@@ -223,6 +251,8 @@ CF官方优选443系端口：443、2053、2083、2087、2096、8443
 ---------------------------------
 
 ### CF视频教程集合：
+
+[🥇搭建代理9大问题排行榜：第4名全网99%的人被误导！第1名每个人都被折腾到爆！全程高能！](https://youtu.be/pJwJBqBkcfw)
 
 [CF workers永久免费vless节点搭建教程（一）：全网首发演示跳IP现象，解密两大节点使用技巧，优选IP、优选域名的优缺点说明](https://youtu.be/9V9CQxmfwoA)
 
